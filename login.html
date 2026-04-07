@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ElectroBuy</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            margin:0;
+            background:#f4f4f4;
+        }
+
+        .navbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:#0a3d62;
+            padding:15px;
+            color:white;
+        }
+
+        .nav-links a{
+            margin:0 10px;
+            cursor:pointer;
+            color:white;
+            text-decoration:none;
+        }
+
+        .section{
+            display:none;
+            padding:40px;
+            text-align:center;
+        }
+
+        .active{
+            display:block;
+        }
+
+        input{
+            width:250px;
+            padding:10px;
+            margin:10px;
+        }
+
+        button{
+            padding:10px 20px;
+            background:#1e90ff;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+
+        .box{
+            background:white;
+            padding:20px;
+            margin:auto;
+            width:300px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <h2>ElectroBuy</h2>
+    <div class="nav-links">
+        <a onclick="showSection('login')">Login</a>
+        <a onclick="showSection('signup')">Sign Up</a>
+        <a onclick="logout()">Logout</a>
+    </div>
+</div>
+
+<!-- Login Page -->
+<div id="login" class="section active">
+    <div class="box">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email"><br>
+        <input type="password" id="loginPassword" placeholder="Password"><br>
+        <button onclick="login()">Login</button>
+    </div>
+</div>
+
+<!-- Sign Up Page -->
+<div id="signup" class="section">
+    <div class="box">
+        <h2>Create Account</h2>
+        <input type="text" id="name" placeholder="Full Name"><br>
+        <input type="email" id="email" placeholder="Email"><br>
+        <input type="password" id="password" placeholder="Password"><br>
+        <button onclick="register()">Register</button>
+    </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard" class="section">
+    <div class="box">
+        <h2>Dashboard 🎉</h2>
+        <p id="welcome"></p>
+        <p>You are successfully logged in</p>
+    </div>
+</div>
+
+<script>
+
+let user = {};
+
+function showSection(id){
+    let sections = document.querySelectorAll(".section");
+    sections.forEach(sec => sec.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+function register(){
+    user.name = document.getElementById("name").value;
+    user.email = document.getElementById("email").value;
+    user.password = document.getElementById("password").value;
+
+    alert("Registration Successful!");
+    showSection('login');
+}
+
+function login(){
+    let email = document.getElementById("loginEmail").value;
+    let password = document.getElementById("loginPassword").value;
+
+    if(email === user.email && password === user.password){
+        document.getElementById("welcome").innerText = "Hello " + user.name;
+        showSection('dashboard');
+    } else {
+        alert("Invalid Email or Password");
+    }
+}
+
+function logout(){
+    showSection('login');
+}
+
+</script>
+
+</body>
+</html>
